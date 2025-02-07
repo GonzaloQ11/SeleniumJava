@@ -1,0 +1,28 @@
+package base;
+
+import config.ConfigReader;
+import drivers.DriverManager;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
+import java.time.Duration;
+
+public class BaseTest {
+    private static final int DEFAULT_WAIT_DURATION = Integer.parseInt(ConfigReader.getProperty("defaultDuration"));
+    protected WebDriver driver;
+
+    @BeforeMethod
+    public void setup() {
+        driver = DriverManager.getDriver();
+        driver.get(ConfigReader.getProperty("baseUrl"));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(DEFAULT_WAIT_DURATION));
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}
