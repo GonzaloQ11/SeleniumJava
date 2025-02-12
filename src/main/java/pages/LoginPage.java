@@ -1,6 +1,7 @@
 package pages;
 
 import base.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,6 +34,7 @@ public class LoginPage extends BasePage {
         loginButton.click();
     }
 
+    @Step("Login")
     public void login(String username, String password) {
         enterUsername(username);
         enterPassword(password);
