@@ -16,6 +16,7 @@ public class LoginPage extends BasePage {
     private WebElement passwordInput;
     @FindBy(css = "[type='submit']")
     private WebElement loginButton;
+    private final By requiredInputError = By.xpath("//parent::*//following-sibling::span");
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -33,6 +34,23 @@ public class LoginPage extends BasePage {
     public void clickOnLoginButton() {
         loginButton.click();
     }
+
+    public boolean verifyUsernameIsRequired() {
+        return usernameInput.findElement(requiredInputError).isDisplayed();
+    }
+
+    public String getUsernameErrorText() {
+        return usernameInput.findElement(requiredInputError).getText();
+    }
+
+    public boolean verifyPasswordIsRequired() {
+        return usernameInput.findElement(requiredInputError).isDisplayed();
+    }
+
+    public String getPasswordErrorText() {
+        return usernameInput.findElement(requiredInputError).getText();
+    }
+
 
     @Step("Login")
     public void login(String username, String password) {
