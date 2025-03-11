@@ -16,6 +16,7 @@ import java.net.URL;
 
 public class DriverManager {
     private static WebDriver driver;
+    static boolean  HEADLESS = Boolean.parseBoolean(ConfigReader.getProperty("HEADLESS"));
 
     public static WebDriver getDriver() {
         if (driver == null) {
@@ -30,36 +31,55 @@ public class DriverManager {
         switch (BrowserType.valueOf(browser)) {
             case FIREFOX:
                 WebDriverManager.firefoxdriver().setup();
-                return new FirefoxDriver();
+                return new FirefoxDriver(getFirefoxOptions());
             case CHROME:
             default:
                 WebDriverManager.chromedriver().setup();
-                ChromeOptions options = new ChromeOptions();
-                options.addArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage");
-                return new ChromeDriver(options);
+                return new ChromeDriver(getChromeOptions());
         }
     }
+
 
     public static WebDriver getRemoteDriver(String browser) {
         Capabilities browserOptions;
         switch (BrowserType.valueOf(browser)) {
             case FIREFOX:
-                browserOptions = new FirefoxOptions();
+                browserOptions = getFirefoxOptions();
                 break;
             case CHROME:
             default:
-                browserOptions = new ChromeOptions();
+                browserOptions = getChromeOptions();
                 break;
         }
+
         try {
             driver = new RemoteWebDriver(getRemoteDriverURL(), browserOptions);
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Invalid Remote WebDriver URL", e);
         }
         return driver;
     }
 
-    public static URL getRemoteDriverURL() throws MalformedURLException {
+
+    private static ChromeOptions getChromeOptions() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
+        if (HEADLESS) {
+            options.addArguments("--headless");
+        }
+        return options;
+    }
+
+
+    private static FirefoxOptions getFirefoxOptions() {
+        FirefoxOptions options = new FirefoxOptions();
+        if (HEADLESS) {
+            options.addArguments("--headless");
+        }
+        return options;
+    }
+
+    private static URL getRemoteDriverURL() throws MalformedURLException {
         return new URL(ConfigReader.getProperty("seleniumRemoteURL"));
     }
 
