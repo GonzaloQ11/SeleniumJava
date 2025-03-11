@@ -16,6 +16,8 @@ public class LoginPage extends BasePage {
     private WebElement passwordInput;
     @FindBy(css = "[type='submit']")
     private WebElement loginButton;
+    @FindBy(xpath = "//*[@class='orangehrm-login-error']//*[@role='alert']")
+    private WebElement errorMessageBox;
     private final By requiredInputError = By.xpath("//parent::*//following-sibling::span");
 
     public LoginPage(WebDriver driver) {
@@ -49,6 +51,14 @@ public class LoginPage extends BasePage {
 
     public String getPasswordErrorText() {
         return usernameInput.findElement(requiredInputError).getText();
+    }
+
+    public boolean isErrorMessageDisplayed() {
+        return errorMessageBox.isDisplayed();
+    }
+
+    public String getErrorMessage() {
+        return errorMessageBox.getText();
     }
 
 

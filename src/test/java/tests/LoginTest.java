@@ -22,4 +22,12 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(loginPage.verifyPasswordIsRequired());
         Assert.assertEquals(loginPage.getPasswordErrorText(), "Required");
     }
+
+    @Test
+    public void verifyInvalidCredentialsErrorMessage() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("Admin", "wrongPassword");
+        Assert.assertTrue(loginPage.isErrorMessageDisplayed());
+        Assert.assertEquals(loginPage.getErrorMessage(), "Invalid credentials");
+    }
 }
