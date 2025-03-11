@@ -14,15 +14,13 @@ public class BaseTest {
 
     @BeforeMethod
     public void setup() {
-        driver = DriverManager.getDriver();
+        driver = DriverManager.getInstance().getDriver();
         driver.get(ConfigReader.getProperty("baseUrl"));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(DEFAULT_WAIT_DURATION));
     }
 
     @AfterMethod
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        DriverManager.getInstance().quitDriver();
     }
 }
