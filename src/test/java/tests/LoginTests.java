@@ -2,20 +2,29 @@ package tests;
 
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.DashboardPage;
 import pages.LoginPage;
 
-public class LoginTest extends BaseTest {
+public class LoginTests extends BaseTest {
+
+    LoginPage loginPage;
+    DashboardPage dashboardPage;
+
+    @BeforeMethod
+    public void setupPages() {
+        loginPage = new LoginPage(driver);
+        dashboardPage = new DashboardPage(driver);
+    }
     @Test
     public void verifySuccessfulLogin() {
-        LoginPage loginPage = new LoginPage(driver);
         loginPage.login("Admin", "admin123");
-        Assert.assertEquals(driver.getTitle(), "OrangeHRM", "Login Failed!");
+        Assert.assertTrue( dashboardPage.isDashboardDisplayed(), "Login Failed!");
     }
 
     @Test
     public void verifyUsernameAndPasswordAreRequired() {
-        LoginPage loginPage = new LoginPage(driver);
         loginPage.clickOnLoginButton();
         Assert.assertTrue(loginPage.verifyUsernameIsRequired());
         Assert.assertEquals(loginPage.getUsernameErrorText(), "Required");
@@ -25,9 +34,15 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void verifyInvalidCredentialsErrorMessage() {
-        LoginPage loginPage = new LoginPage(driver);
         loginPage.login("Admin", "wrongPassword");
         Assert.assertTrue(loginPage.isErrorMessageDisplayed());
         Assert.assertEquals(loginPage.getErrorMessage(), "Invalid credentials");
+    }
+
+    @Test
+    public void verifyUserCanLoginAfterFailedAttempt() {
+        loginPage.login("Admin", "wrongPassword");
+        loginPage.login("Admin", "admin123");
+        Assert.assertTrue( dashboardPage.isDashboardDisplayed(), "Login Failed!");
     }
 }
