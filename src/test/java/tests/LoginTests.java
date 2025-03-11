@@ -5,17 +5,20 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.DashboardPage;
+import pages.ForgottenPasswordPage;
 import pages.LoginPage;
 
 public class LoginTests extends BaseTest {
 
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    ForgottenPasswordPage forgottenPasswordPage;
 
     @BeforeMethod
     public void setupPages() {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        forgottenPasswordPage = new ForgottenPasswordPage(driver);
     }
     @Test
     public void verifySuccessfulLogin() {
@@ -44,5 +47,11 @@ public class LoginTests extends BaseTest {
         loginPage.login("Admin", "wrongPassword");
         loginPage.login("Admin", "admin123");
         Assert.assertTrue( dashboardPage.isDashboardDisplayed(), "Login Failed!");
+    }
+
+    @Test
+    public void verifyUserCanAccessForgottenPasswordPage() {
+        loginPage.clickOnForgottenPasswordLink();
+        Assert.assertTrue(forgottenPasswordPage.isForgottenPasswordPageDisplayed(), "Forgotten Password page is not displayed");
     }
 }

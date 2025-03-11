@@ -18,6 +18,8 @@ public class LoginPage extends BasePage {
     private WebElement loginButton;
     @FindBy(xpath = "//*[@class='orangehrm-login-error']//*[@role='alert']")
     private WebElement errorMessageBox;
+    @FindBy(className =  "orangehrm-login-forgot")
+    private WebElement forgotPasswordLink;
     private final By requiredInputError = By.xpath("//parent::*//following-sibling::span");
 
     public LoginPage(WebDriver driver) {
@@ -59,6 +61,10 @@ public class LoginPage extends BasePage {
 
     public String getErrorMessage() {
         return errorMessageBox.getText();
+    }
+
+    public void clickOnForgottenPasswordLink() {
+        forgotPasswordLink.click();
     }
 
 
