@@ -2,13 +2,8 @@ package drivers;
 
 import config.ConfigReader;
 import enums.BrowserType;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
@@ -17,7 +12,6 @@ import java.net.URL;
 public class DriverManager {
     private static DriverManager instance;
     private WebDriver driver;
-    private static final boolean HEADLESS = Boolean.parseBoolean(ConfigReader.getProperty("HEADLESS"));
 
     public static DriverManager getInstance() {
         if (instance == null) {
@@ -45,12 +39,10 @@ public class DriverManager {
     private static WebDriver getLocalDriver(String browser) {
         switch (BrowserType.valueOf(browser)) {
             case FIREFOX:
-                WebDriverManager.firefoxdriver().setup();
-                return new FirefoxDriver(getFirefoxOptions());
+                return FirefoxDriverHelper.getDriver();
             case CHROME:
             default:
-                WebDriverManager.chromedriver().setup();
-                return new ChromeDriver(getChromeOptions());
+                return ChromeDriverHelper.getDriver();
         }
     }
 
@@ -58,11 +50,11 @@ public class DriverManager {
         Capabilities browserOptions;
         switch (BrowserType.valueOf(browser)) {
             case FIREFOX:
-                browserOptions = getFirefoxOptions();
+                browserOptions = FirefoxDriverHelper.getOptions();
                 break;
             case CHROME:
             default:
-                browserOptions = getChromeOptions();
+                browserOptions = ChromeDriverHelper.getOptions();
                 break;
         }
 
@@ -71,23 +63,6 @@ public class DriverManager {
         } catch (MalformedURLException e) {
             throw new RuntimeException("Invalid Remote WebDriver URL", e);
         }
-    }
-
-    private static ChromeOptions getChromeOptions() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
-        if (HEADLESS) {
-            options.addArguments("--headless");
-        }
-        return options;
-    }
-
-    private static FirefoxOptions getFirefoxOptions() {
-        FirefoxOptions options = new FirefoxOptions();
-        if (HEADLESS) {
-            options.addArguments("--headless");
-        }
-        return options;
     }
 
     private static URL getRemoteDriverURL() throws MalformedURLException {
