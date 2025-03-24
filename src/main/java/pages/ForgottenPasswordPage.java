@@ -21,6 +21,19 @@ public class ForgottenPasswordPage extends BasePage {
     }
 
     public boolean isForgottenPasswordPageDisplayed(){
+        pageFinishedLoading();
         return usernameInput.isDisplayed() && cancelButton.isDisplayed() && resetPasswordButton.isDisplayed();
+    }
+
+    public void clickCancelButton() {
+        cancelButton.click();
+    }
+
+    public boolean verifyUsernameIsRequired() {
+        return usernameInput.findElement(requiredInputError).isDisplayed();
+    }
+
+    public void clickOnResetPasswordButton() {
+        resetPasswordButton.click();
     }
 }

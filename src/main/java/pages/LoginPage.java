@@ -20,16 +20,13 @@ public class LoginPage extends BasePage {
     private WebElement errorMessageBox;
     @FindBy(className =  "orangehrm-login-forgot")
     private WebElement forgotPasswordLink;
-    private final By requiredInputError = By.xpath("//parent::*//following-sibling::span");
 
     public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
-    public void enterUsername(String username) {
-        usernameInput.sendKeys(username);
-    }
+    public void enterUsername(String username) { usernameInput.sendKeys(username); }
 
     public void enterPassword(String password) {
         passwordInput.sendKeys(password);
@@ -67,6 +64,9 @@ public class LoginPage extends BasePage {
         forgotPasswordLink.click();
     }
 
+    public boolean isLoginPageDisplayed() {
+        return usernameInput.isDisplayed() && passwordInput.isDisplayed() && loginButton.isDisplayed();
+    }
 
     @Step("Login")
     public void login(String username, String password) {
