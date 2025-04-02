@@ -13,6 +13,8 @@ public class HomePage extends BasePage {
 
     @FindBy(css = "button[onclick]")
     private WebElement runButton;
+    @FindBy(xpath = "//main//h1")
+    private WebElement topTitle;
     private final By cards = By.xpath("//*[contains(@class, 'rounded-lg')]");
     private final By cardImage = By.xpath("//img");
     private final By cardName = By.xpath("//span[contains(@class, 'block')]");
@@ -50,6 +52,10 @@ public class HomePage extends BasePage {
 
     public BottomBarSection getBottomBarSection () {
         return bottomBarSection;
+    }
+
+    public boolean topTitleIsDisplayed() {
+        return topTitle.isDisplayed();
     }
 
 }

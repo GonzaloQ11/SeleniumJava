@@ -12,6 +12,8 @@ public class BottomBarSection extends BasePage {
     private WebElement homeButton;
     @FindBy(xpath = "//a[text()=' Add ']")
     private WebElement addButton;
+    @FindBy(xpath = "//a[text()=' Top ']")
+    private WebElement topButton;
 
     public BottomBarSection (WebDriver driver) {
         super(driver);
@@ -26,4 +28,7 @@ public class BottomBarSection extends BasePage {
         addButton.click();
     }
 
+    public void clickOnTopButton() {
+        topButton.click();
+    }
 }

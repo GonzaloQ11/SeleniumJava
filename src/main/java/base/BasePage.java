@@ -37,4 +37,9 @@ public class BasePage {
     public String getCurrentURL() {
         return driver.getCurrentUrl();
     }
+
+    public void scrollToTheBottom() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+    }
 }

@@ -71,4 +71,11 @@ public class HomePageTests extends BaseTest {
         */
         Assert.assertTrue(newCardPage.verifyFormIsDisplayed(), "Form is not displayed.");
     }
+
+    @Test
+    public void verifyTopButton() {
+        homePage.scrollToTheBottom();
+        homePage.getBottomBarSection().clickOnTopButton();
+        Assert.assertTrue(homePage.topTitleIsDisplayed(), "Top Title is not displayed.");
+    }
 }
