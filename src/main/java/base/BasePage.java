@@ -33,4 +33,8 @@ public class BasePage {
     public void pageFinishedLoading() {
         wait.until(driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"));
     }
+
+    public String getCurrentURL() {
+        return driver.getCurrentUrl();
+    }
 }

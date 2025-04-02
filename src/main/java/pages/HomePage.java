@@ -39,6 +39,9 @@ public class HomePage extends BasePage {
         return card.findElement(cardVerDetalleLink).isDisplayed();
     }
 
+    public void clickOnCardLink(List<WebElement> cards, int cardIndex) {
+        cards.get(cardIndex).findElement(cardVerDetalleLink).click();
+    }
 
     public List<WebElement> getListOfCards() {
         return driver.findElements(cards);
