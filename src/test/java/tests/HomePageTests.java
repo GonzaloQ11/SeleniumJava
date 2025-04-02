@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CharacterPage;
 import pages.HomePage;
+import pages.NewCardPage;
 
 import java.util.List;
 
@@ -15,11 +16,13 @@ public class HomePageTests extends BaseTest {
 
     private HomePage homePage;
     private CharacterPage characterPage;
+    private NewCardPage newCardPage;
 
     @BeforeMethod
     public void setupPages () {
         homePage = new HomePage(driver);
         characterPage = new CharacterPage(driver);
+        newCardPage = new NewCardPage(driver);
         homePage.pageFinishedLoading();
         homePage.clickOnRunButton();
     }
@@ -57,5 +60,15 @@ public class HomePageTests extends BaseTest {
         homePage.clickOnCardLink(cards, 1);
         characterPage.getBottomBarSection().clickOnHomeButton();
         Assert.assertEquals(homePage.getCurrentURL(), ConfigReader.getProperty("baseUrl"));
+    }
+
+    @Test
+    public void verifyAddButton() {
+        homePage.getBottomBarSection().clickOnAddButton();
+        /*
+            There is an empty screen after clicking on "Add" button.
+            The form element is not displayed, making this test fail.
+        */
+        Assert.assertTrue(newCardPage.verifyFormIsDisplayed(), "Form is not displayed.");
     }
 }

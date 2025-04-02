@@ -17,6 +17,7 @@ public class HomePage extends BasePage {
     private final By cardImage = By.xpath("//img");
     private final By cardName = By.xpath("//span[contains(@class, 'block')]");
     private final By cardVerDetalleLink = By.xpath("//a[text()=' Ver detalle ']");
+    private BottomBarSection bottomBarSection = new BottomBarSection(driver);
 
     public HomePage (WebDriver driver) {
         super(driver);
@@ -45,6 +46,10 @@ public class HomePage extends BasePage {
 
     public List<WebElement> getListOfCards() {
         return driver.findElements(cards);
+    }
+
+    public BottomBarSection getBottomBarSection () {
+        return bottomBarSection;
     }
 
 }
