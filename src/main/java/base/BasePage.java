@@ -14,7 +14,6 @@ import java.time.Duration;
 public class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
-    protected final By requiredInputError = By.xpath("//parent::*//following-sibling::span");
     private static final int DEFAULT_WAIT_DURATION = Integer.parseInt(ConfigReader.getProperty("defaultWait"));
 
     public BasePage(WebDriver driver) {
