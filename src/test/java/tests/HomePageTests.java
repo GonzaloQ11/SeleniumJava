@@ -1,6 +1,7 @@
 package tests;
 
 import base.BaseTest;
+import config.ConfigReader;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -48,5 +49,13 @@ public class HomePageTests extends BaseTest {
         Assert.assertTrue(characterPage.characterGenderIsDisplayed(), "Character gender is not displayed.");
         Assert.assertTrue(characterPage.characterSpecieIsDisplayed(), "Character specie is not displayed.");
         Assert.assertTrue(characterPage.characterStatusIsDisplayed(), "Character status is not displayed.");
+    }
+
+    @Test
+    public void verifyHomeButton() {
+        List<WebElement> cards = homePage.getListOfCards();
+        homePage.clickOnCardLink(cards, 1);
+        characterPage.getBottomBarSection().clickOnHomeButton();
+        Assert.assertEquals(homePage.getCurrentURL(), ConfigReader.getProperty("baseUrl"));
     }
 }

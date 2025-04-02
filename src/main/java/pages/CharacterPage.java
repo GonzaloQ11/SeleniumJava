@@ -16,9 +16,11 @@ public class CharacterPage extends BasePage {
     private WebElement specie;
     @FindBy(xpath = "//p//b[text()='Status:']")
     private WebElement status;
+    private BottomBarSection bottomBarSection;
 
     public CharacterPage(WebDriver driver) {
         super(driver);
+        bottomBarSection = new BottomBarSection(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -36,6 +38,10 @@ public class CharacterPage extends BasePage {
 
     public boolean characterStatusIsDisplayed() {
         return status.isDisplayed();
+    }
+
+    public BottomBarSection getBottomBarSection() {
+        return bottomBarSection;
     }
 
 }
