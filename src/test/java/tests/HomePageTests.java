@@ -8,23 +8,26 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CharacterPage;
 import pages.HomePage;
+import pages.LauncherPage;
 import pages.NewCardPage;
 
 import java.util.List;
 
 public class HomePageTests extends BaseTest {
 
+    private LauncherPage launcherPage;
     private HomePage homePage;
     private CharacterPage characterPage;
     private NewCardPage newCardPage;
 
     @BeforeMethod
-    public void setupPages () {
+    public void setupPagesAndLaunchProject() {
+        launcherPage = new LauncherPage(driver);
         homePage = new HomePage(driver);
         characterPage = new CharacterPage(driver);
         newCardPage = new NewCardPage(driver);
-        homePage.pageFinishedLoading();
-        homePage.clickOnRunButton();
+        launcherPage.pageFinishedLoading();
+        launcherPage.clickOnRunButton();
     }
 
     @Test
