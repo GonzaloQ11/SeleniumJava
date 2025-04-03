@@ -6,6 +6,8 @@ public class JsonPost {
     private String title;
     private String body;
 
+    public JsonPost() {}
+
     public JsonPost(int userId, int id, String title, String body) {
         this.userId =userId;
         this.id = id;
