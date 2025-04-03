@@ -1,5 +1,5 @@
 @API
-Feature: User gets list of posts
+Feature: JSON Posts API
 
   Scenario: Get list of posts
     Given There is a list of posts available
