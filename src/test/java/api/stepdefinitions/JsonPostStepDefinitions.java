@@ -107,4 +107,27 @@ public class JsonPostStepDefinitions {
                 .body("userId", equalTo(1));
     }
 
+    @Given("I want to delete a post")
+    public void i_want_to_delete_a_post() {
+        request = SerenityRest.given()
+                .baseUri("https://jsonplaceholder.typicode.com")
+                .basePath("/posts/1")
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON);
+    }
+
+    @When("I delete a post")
+    public void i_delete_a_post() {
+        request.delete();
+    }
+
+    @Then("The post is deleted")
+    public void thePostIsDeleted() {
+        SerenityRest.lastResponse()
+                .then()
+                .statusCode(200);
+        // the deletion is not actually executed in the server, so it's possible to retrieve again using GET
+    }
+
+
 }

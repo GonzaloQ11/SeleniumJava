@@ -14,3 +14,8 @@ Feature: User gets list of posts
     Given I want to update a post
     When I update a post
     Then The post is updated
+
+  Scenario: Delete a post
+    Given I want to delete a post
+    When I delete a post
+    Then The post is deleted
