@@ -47,4 +47,28 @@ public class JsonPostStepDefinitions {
             assertThat(post.getBody()).as("body").isNotBlank();
         });
     }
+
+
+    @Given("I want to create a new post")
+    public void i_want_to_create_a_new_post() {
+        JsonPost newPost = new JsonPost(1, "foo", "bar");
+
+        given()
+                .baseUri("https://jsonplaceholder.typicode.com")
+                .basePath("/posts")
+                .accept(ContentType.JSON)
+                .body(newPost);
+    }
+
+    @When("I create a new post")
+    public void i_create_a_new_post() {
+        when()
+             .post();
+    }
+
+    @Then("The response code should be 201")
+    public void the_response_code_should_be_201() {
+        Ensure.that("Status code is 201", res -> res.statusCode(201));
+    }
+
 }
