@@ -1,6 +1,5 @@
-package ui.stepdefinitions;
+package stepdefinitions.ui;
 
-import base.BaseTest;
 import config.ConfigReader;
 import drivers.DriverManager;
 import io.cucumber.java.After;

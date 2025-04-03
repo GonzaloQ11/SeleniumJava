@@ -1,4 +1,4 @@
-package api.stepdefinitions;
+package stepdefinitions.api;
 
 import pojos.JsonPost;
 import io.cucumber.java.en.Given;
