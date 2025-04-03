@@ -32,11 +32,10 @@ src
 │
 └── test
     ├── java
-    │   ├── api
-    │   │   ├── runner           # Cucumber runner for API tests
-    │   │   └── steps            # Step definitions for API tests
-    │   ├── base                 # Base test helper class
-    │   └── tests                # UI test classes
+    │   ├── runner               # Cucumber runner for UI and API tests
+    │   └── stepdefinitions      
+    │       └── api              # API Steps
+    │       └── ui               # UI Steps
     └── resources
         └── features             # Gherkin feature files
 
@@ -56,16 +55,18 @@ src
 ```bash
 mvn clean verify
 ```
-
-This will execute all tests and generate a Serenity report.
-
 ---
 
 ## Reports
 
 ### Serenity Report
 
-After test execution, open the HTML report:
+After test execution, run:
+```bash
+ mvn serenity:aggregate
+```
+
+Then open the HTML report at:
 
 ```
 target/site/serenity/index.html
