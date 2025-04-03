@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import net.serenitybdd.rest.Ensure;
 import net.serenitybdd.rest.SerenityRest;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,12 +15,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import static net.serenitybdd.rest.SerenityRest.*;
+import static org.hamcrest.Matchers.equalTo;
 
 public class JsonPostStepDefinitions {
+    private RequestSpecification request;
+
 
     @Given("There is a list of posts available")
     public void there_is_a_list_of_posts_available() {
-        given()
+        request = SerenityRest.given()
                 .baseUri("https://jsonplaceholder.typicode.com")
                 .basePath("/posts")
                 .accept(ContentType.JSON);
@@ -53,22 +57,53 @@ public class JsonPostStepDefinitions {
     public void i_want_to_create_a_new_post() {
         JsonPost newPost = new JsonPost(1, "foo", "bar");
 
-        given()
+        request = SerenityRest.given()
                 .baseUri("https://jsonplaceholder.typicode.com")
                 .basePath("/posts")
-                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
                 .body(newPost);
     }
 
     @When("I create a new post")
     public void i_create_a_new_post() {
-        when()
-             .post();
+        request.post();
     }
 
     @Then("The response code should be 201")
     public void the_response_code_should_be_201() {
-        Ensure.that("Status code is 201", res -> res.statusCode(201));
+        SerenityRest.lastResponse()
+                .then()
+                .statusCode(201)
+                .body("title", equalTo("foo"))
+                .body("body", equalTo("bar"))
+                .body("userId", equalTo(1));
+    }
+
+
+    @Given("I want to update a post")
+    public void i_want_to_update_a_post() {
+        JsonPost newPost = new JsonPost(1, "updated title", "updated body");
+        request = SerenityRest.given()
+                .baseUri("https://jsonplaceholder.typicode.com")
+                .basePath("/posts/1")
+                .accept(ContentType.JSON)
+                .body(newPost);
+    }
+
+    @When("I update a post")
+    public void i_update_a_post() {
+        request.put();
+    }
+
+    @Then("The post is updated")
+    public void the_post_is_updated() {
+        SerenityRest.lastResponse()
+                .then()
+                .statusCode(200)
+                .body("id", equalTo(1))
+                .body("title", equalTo("updated title"))
+                .body("body", equalTo("updated body"))
+                .body("userId", equalTo(1));
     }
 
 }

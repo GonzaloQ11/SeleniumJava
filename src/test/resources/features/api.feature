@@ -9,3 +9,8 @@ Feature: User gets list of posts
     Given I want to create a new post
     When I create a new post
     Then The response code should be 201
+
+  Scenario: Update post
+    Given I want to update a post
+    When I update a post
+    Then The post is updated
