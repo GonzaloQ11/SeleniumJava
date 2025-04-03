@@ -1,4 +1,4 @@
-package api;
+package pojos;
 
 public class JsonPost {
     private int userId;

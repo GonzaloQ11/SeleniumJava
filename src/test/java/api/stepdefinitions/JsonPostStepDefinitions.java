@@ -1,6 +1,6 @@
 package api.stepdefinitions;
 
-import api.JsonPost;
+import pojos.JsonPost;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,7 +11,6 @@ import net.serenitybdd.rest.Ensure;
 import net.serenitybdd.rest.SerenityRest;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static net.serenitybdd.rest.SerenityRest.*;
