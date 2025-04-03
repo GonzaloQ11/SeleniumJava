@@ -82,12 +82,13 @@ public class JsonPostStepDefinitions {
 
     @Given("I want to update a post")
     public void i_want_to_update_a_post() {
-        JsonPost newPost = new JsonPost(1, "updated title", "updated body");
+        JsonPost updatedPost = new JsonPost(1, 1, "updated title", "updated body");
         request = SerenityRest.given()
                 .baseUri("https://jsonplaceholder.typicode.com")
                 .basePath("/posts/1")
                 .accept(ContentType.JSON)
-                .body(newPost);
+                .contentType(ContentType.JSON)
+                .body(updatedPost);
     }
 
     @When("I update a post")
