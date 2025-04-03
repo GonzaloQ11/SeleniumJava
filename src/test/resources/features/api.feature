@@ -1,3 +1,4 @@
+@API
 Feature: User gets list of posts
 
   Scenario: Get list of posts

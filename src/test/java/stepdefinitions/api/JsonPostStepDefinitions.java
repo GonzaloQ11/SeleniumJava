@@ -19,7 +19,6 @@ import static org.hamcrest.Matchers.equalTo;
 public class JsonPostStepDefinitions {
     private RequestSpecification request;
 
-
     @Given("There is a list of posts available")
     public void there_is_a_list_of_posts_available() {
         request = SerenityRest.given()

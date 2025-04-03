@@ -1,3 +1,4 @@
+@UI
 Feature: Card Browser
 
   Scenario: Cards display complete information

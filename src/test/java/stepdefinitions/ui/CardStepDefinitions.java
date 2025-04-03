@@ -28,14 +28,14 @@ public class CardStepDefinitions {
     private NewCardPage newCardPage;
     List<WebElement> cards;
 
-    @Before
+    @Before("@UI")
     public void setup() {
         driver = DriverManager.getInstance().getDriver();
         driver.get(ConfigReader.getProperty("baseUrl"));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(DEFAULT_WAIT_DURATION));
     }
 
-    @After
+    @After("@UI")
     public void tearDown() {
         DriverManager.getInstance().quitDriver();
     }
