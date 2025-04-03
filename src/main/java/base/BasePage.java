@@ -21,9 +21,15 @@ public class BasePage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAIT_DURATION));
     }
 
-    protected boolean isElementDisplayed(WebElement element) {
-        return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
+    public boolean isElementDisplayed(WebElement element) {
+        try {
+            return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
+        } catch (Exception e) {
+            // Optional: catch other issues (e.g., stale elements)
+            return false;
+        }
     }
+
 
     protected boolean isMessageDisplayed(WebElement element, String text) {
        return wait.until(ExpectedConditions.textToBePresentInElement(element, text));
