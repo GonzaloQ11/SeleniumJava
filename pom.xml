@@ -119,26 +119,16 @@
       <plugin>
         <groupId>net.serenity-bdd.maven.plugins</groupId>
         <artifactId>serenity-maven-plugin</artifactId>
-        <version>${serenity.version}</version>
-        <configuration>
-          <reports>single-page-html</reports>
-        </configuration>
+        <version>4.2.17</version>
         <executions>
           <execution>
             <id>serenity-reports</id>
-            <phase>post-integration-test</phase>
+            <phase>verify</phase>
             <goals>
               <goal>aggregate</goal>
             </goals>
           </execution>
         </executions>
-        <dependencies>
-          <dependency>
-            <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-single-page-report</artifactId>
-            <version>${serenity.version}</version>
-          </dependency>
-        </dependencies>
       </plugin>
 
     </plugins>
