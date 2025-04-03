@@ -24,7 +24,7 @@ public class HomePage extends BasePage {
         super(driver);
         PageFactory.initElements(driver, this);
     }
-    
+
     public boolean isCardImageDisplayed(WebElement card) {
         return card.findElement(cardImage).isDisplayed();
     }
@@ -39,6 +39,7 @@ public class HomePage extends BasePage {
 
     public void clickOnCardLink(List<WebElement> cards, int cardIndex) {
         cards.get(cardIndex).findElement(cardVerDetalleLink).click();
+        pageFinishedLoading();
     }
 
     public List<WebElement> getListOfCards() {
@@ -50,7 +51,7 @@ public class HomePage extends BasePage {
     }
 
     public boolean topTitleIsDisplayed() {
-        return topTitle.isDisplayed();
+        return isElementDisplayed(topTitle);
     }
 
 }

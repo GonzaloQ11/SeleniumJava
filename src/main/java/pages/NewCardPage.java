@@ -21,6 +21,6 @@ public class NewCardPage extends BasePage {
     }
 
     public boolean verifyFormIsDisplayed(){
-        return form.isDisplayed();
+        return isElementDisplayed(form);
     }
 }

@@ -21,8 +21,8 @@ public class BasePage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAIT_DURATION));
     }
 
-    protected WebElement waitForVisibility(WebElement element) {
-        return wait.until(ExpectedConditions.visibilityOf(element));
+    protected boolean isElementDisplayed(WebElement element) {
+        return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
     }
 
     protected boolean isMessageDisplayed(WebElement element, String text) {

@@ -25,19 +25,19 @@ public class CharacterPage extends BasePage {
     }
 
     public boolean characterNameIsDisplayed() {
-        return name.isDisplayed();
+        return isElementDisplayed(name);
     }
 
     public boolean characterGenderIsDisplayed() {
-        return gender.isDisplayed();
+        return isElementDisplayed(gender);
     }
 
     public boolean characterSpecieIsDisplayed() {
-        return specie.isDisplayed();
+        return isElementDisplayed(specie);
     }
 
     public boolean characterStatusIsDisplayed() {
-        return status.isDisplayed();
+        return isElementDisplayed(status);
     }
 
     public BottomBarSection getBottomBarSection() {
