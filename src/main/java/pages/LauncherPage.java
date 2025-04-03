@@ -17,6 +17,7 @@ public class LauncherPage extends BasePage {
     }
 
     public void clickOnRunButton() {
+        isElementDisplayed(runButton);
         runButton.click();
         pageFinishedLoading();
     }
