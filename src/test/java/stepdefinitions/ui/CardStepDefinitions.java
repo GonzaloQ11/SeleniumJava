@@ -106,6 +106,9 @@ public class CardStepDefinitions {
 
     @Then("the new card form should be visible")
     public void verifyNewCardFormIsDisplayed() {
+        /*
+            Form is not displayed on the UI after clicking on Add button, making the test fail
+         */
         Assert.assertTrue("Form is not displayed.", newCardPage.verifyFormIsDisplayed());
     }
 
