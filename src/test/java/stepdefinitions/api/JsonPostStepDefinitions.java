@@ -9,18 +9,19 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import net.serenitybdd.rest.Ensure;
 import net.serenitybdd.rest.SerenityRest;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import static net.serenitybdd.rest.SerenityRest.*;
+import static net.serenitybdd.rest.SerenityRest.when;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class JsonPostStepDefinitions {
+
     private RequestSpecification request;
 
     @Given("There is a list of posts available")
-    public void there_is_a_list_of_posts_available() {
+    public void thereIsAListOfPostsAvailable() {
         request = SerenityRest.given()
                 .baseUri("https://jsonplaceholder.typicode.com")
                 .basePath("/posts")
@@ -28,13 +29,12 @@ public class JsonPostStepDefinitions {
     }
 
     @When("I ask for the complete list")
-    public void i_ask_for_the_complete_list() {
-        when()
-                .get();
+    public void iAskForTheCompleteList() {
+        when().get();
     }
 
     @Then("The list has at least one result")
-    public void the_list_has_at_least_one_result() {
+    public void theListHasAtLeastOneResult() {
         List<JsonPost> posts = SerenityRest.lastResponse()
                 .as(new TypeRef<List<JsonPost>>() {});
 
@@ -50,9 +50,8 @@ public class JsonPostStepDefinitions {
         });
     }
 
-
     @Given("I want to create a new post")
-    public void i_want_to_create_a_new_post() {
+    public void iWantToCreateANewPost() {
         JsonPost newPost = new JsonPost(1, "foo", "bar");
 
         request = SerenityRest.given()
@@ -63,12 +62,12 @@ public class JsonPostStepDefinitions {
     }
 
     @When("I create a new post")
-    public void i_create_a_new_post() {
+    public void iCreateANewPost() {
         request.post();
     }
 
     @Then("The response code should be 201")
-    public void the_response_code_should_be_201() {
+    public void theResponseCodeShouldBe201() {
         SerenityRest.lastResponse()
                 .then()
                 .statusCode(201)
@@ -77,10 +76,10 @@ public class JsonPostStepDefinitions {
                 .body("userId", equalTo(1));
     }
 
-
     @Given("I want to update a post")
-    public void i_want_to_update_a_post() {
+    public void iWantToUpdateAPost() {
         JsonPost updatedPost = new JsonPost(1, 1, "updated title", "updated body");
+
         request = SerenityRest.given()
                 .baseUri("https://jsonplaceholder.typicode.com")
                 .basePath("/posts/1")
@@ -90,12 +89,12 @@ public class JsonPostStepDefinitions {
     }
 
     @When("I update a post")
-    public void i_update_a_post() {
+    public void iUpdateAPost() {
         request.put();
     }
 
     @Then("The post is updated")
-    public void the_post_is_updated() {
+    public void thePostIsUpdated() {
         SerenityRest.lastResponse()
                 .then()
                 .statusCode(200)
@@ -106,7 +105,7 @@ public class JsonPostStepDefinitions {
     }
 
     @Given("I want to delete a post")
-    public void i_want_to_delete_a_post() {
+    public void iWantToDeleteAPost() {
         request = SerenityRest.given()
                 .baseUri("https://jsonplaceholder.typicode.com")
                 .basePath("/posts/1")
@@ -115,7 +114,7 @@ public class JsonPostStepDefinitions {
     }
 
     @When("I delete a post")
-    public void i_delete_a_post() {
+    public void iDeleteAPost() {
         request.delete();
     }
 
@@ -124,8 +123,6 @@ public class JsonPostStepDefinitions {
         SerenityRest.lastResponse()
                 .then()
                 .statusCode(200);
-        // the deletion is not actually executed in the server, so it's possible to retrieve again using GET
+        // Note: Deletion is faked on JSONPlaceholder, so GET will still return the post.
     }
-
-
 }
